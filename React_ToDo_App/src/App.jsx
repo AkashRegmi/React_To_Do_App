@@ -4,11 +4,15 @@ import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState(["here", "there"]);
-  
+
   const handelsubmit = (e) => {
     e.preventDefault();
     setTodos([...todos, e.target[0].value]);
     e.target.reset();
+  };
+  const handelDelete = (index) => {
+    const newTodos = todos.filter((todo, i) => i !== index);
+    setTodos(newTodos);
   };
   return (
     <>
@@ -18,12 +22,21 @@ function App() {
       </form>
       <ul>
         {todos.map((todo, index) => {
-          return <li key={index}> {todo}<button onClick ={()=>{
-            const newTodos= todos.filter((todo, i)=>i !==index);
-            setTodos(newTodos);
-          }}>Delete</button></li>;
+          return (
+            <li key={index}>
+              {" "}
+              {todo}
+              <button
+                onClick={() => {
+                  handelDelete(index);
+                }}
+              >
+                Delete
+              </button>
+              <button>Edit</button>
+            </li>
+          );
         })}
-        
       </ul>
     </>
   );
